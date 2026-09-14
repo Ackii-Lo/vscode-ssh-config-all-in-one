@@ -598,16 +598,16 @@ function parseSSHInput(input: string): ParsedSSH {
     user: user || undefined,
     identityFile: identityFile || undefined,
     toSnippetString() {
-      let snippet = `Host \${1:${host}}\n    HostName \${2:${hostname}}`
+      let snippet = `Host \${1:${host}}\n\tHostName \${2:${hostname}}`
       if (user)
-        snippet += `\n    User ${user}`
+        snippet += `\n\tUser ${user}`
       if (port)
-        snippet += `\n    Port ${port}`
+        snippet += `\n\tPort ${port}`
       if (identityFile)
-        snippet += `\n    IdentityFile ${identityFile}`
+        snippet += `\n\tIdentityFile ${identityFile}`
       // Add User placeholder only if not already set from input
       if (!user)
-        snippet += `\n    User \${3}`
+        snippet += `\n\tUser \${3}`
       snippet += '\n'
       return snippet
     },
