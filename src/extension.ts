@@ -1,3 +1,5 @@
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import type { Disposable, ExtensionContext } from 'vscode'
 import type { SSHConfigFileItem } from './models/SSHConfigFileItem'
 import type { SSHHostItem } from './models/SSHHostItem'
@@ -292,7 +294,7 @@ export function activate(context: ExtensionContext) {
   disposable.push(
     commands.registerCommand(
       'vscode-ssh-config-all-in-one.addNewHost',
-      async (item: { filePath: string }) => {
+      async (item?: { filePath: string }) => {
         const input = await window.showInputBox({
           prompt: 'Enter SSH connection command or host alias',
           placeHolder: 'user@hostname',
@@ -303,7 +305,8 @@ export function activate(context: ExtensionContext) {
 
         const parsed = parseSSHInput(input)
 
-        const doc = await workspace.openTextDocument(Uri.file(item.filePath))
+        const filePath = item?.filePath ?? join(homedir(), '.ssh', 'config')
+        const doc = await workspace.openTextDocument(Uri.file(filePath))
         const editor = await window.showTextDocument(doc)
 
         const lastLine = doc.lineAt(doc.lineCount - 1)
