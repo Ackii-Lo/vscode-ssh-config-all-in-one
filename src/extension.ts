@@ -1,9 +1,9 @@
-import { homedir } from 'node:os'
-import { join } from 'node:path'
 import type { Disposable, ExtensionContext } from 'vscode'
 import type { SSHConfigFileItem } from './models/SSHConfigFileItem'
 import type { SSHHostItem } from './models/SSHHostItem'
 import type { HostPickItem } from './utils/searchHosts'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import { commands, env, Position, Range, SnippetString, Uri, window, workspace } from 'vscode'
 import { copyPublicKey, openUserConfig } from './functions'
 import {
